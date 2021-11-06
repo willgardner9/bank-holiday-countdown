@@ -1,7 +1,11 @@
 import Head from "next/head";
 import {useState} from "react";
 import ShowCountryButton from "../components/showCountryButton";
-import {formatDate, getDateToday} from "../utils/dates";
+import {
+  countDaysBetweenDateStrings,
+  formatDate,
+  getDateToday,
+} from "../utils/dates";
 
 export default function Home({data}) {
   const {year, month, day} = getDateToday();
@@ -43,6 +47,23 @@ export default function Home({data}) {
   const nextBankHolidayNorthernIreland = futureBankHolidaysNorthernIreland[0];
   const nextBankHolidayScotland = futureBankHolidaysScotland[0];
 
+  const calculateDaysUntilBankHoliday = () => {
+    nextBankHolidayEnglandWales.remainingDays = countDaysBetweenDateStrings(
+      todaysDate,
+      nextBankHolidayEnglandWales.date
+    );
+    nextBankHolidayNorthernIreland.remainingDays = countDaysBetweenDateStrings(
+      todaysDate,
+      nextBankHolidayNorthernIreland.date
+    );
+    nextBankHolidayScotland.remainingDays = countDaysBetweenDateStrings(
+      todaysDate,
+      nextBankHolidayScotland.date
+    );
+  };
+
+  calculateDaysUntilBankHoliday();
+
   const [showEnglandAndWales, setShowEnglandAndWales] = useState(true);
   const [showNorthernIreland, setShowNorthernIreland] = useState(false);
   const [showScotland, setShowScotland] = useState(false);
@@ -74,7 +95,50 @@ export default function Home({data}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex flex-col items-center mt-12">
-        <div className="flex">
+        📅
+        {showEnglandAndWales && (
+          <div className="text-box">
+            <h2 className="text-subtitle">
+              The next bank holiday in England and Wales is{" "}
+              {nextBankHolidayEnglandWales.date}
+            </h2>
+            <h1 className="text-title">
+              {nextBankHolidayEnglandWales.title}
+              <span className="text-title-span"> in </span>
+              {nextBankHolidayEnglandWales.remainingDays}
+              <span className="text-title-span"> days</span>
+            </h1>
+          </div>
+        )}
+        {showScotland && (
+          <div className="text-box">
+            <h2 className="text-subtitle">
+              The next bank holiday in Scotland is{" "}
+              {nextBankHolidayScotland.date}
+            </h2>
+            <h1 className="text-title">
+              {nextBankHolidayScotland.title}
+              <span className="text-title-span"> in </span>
+              {nextBankHolidayScotland.remainingDays}
+              <span className="text-title-span"> days</span>
+            </h1>
+          </div>
+        )}
+        {showNorthernIreland && (
+          <div className="text-box">
+            <h2 className="text-subtitle">
+              The next bank holiday in Northern Ireland is{" "}
+              {nextBankHolidayNorthernIreland.date}
+            </h2>
+            <h1 className="text-title">
+              {nextBankHolidayNorthernIreland.title}
+              <span className="text-title-span"> in </span>
+              {nextBankHolidayNorthernIreland.remainingDays}
+              <span className="text-title-span"> days</span>
+            </h1>
+          </div>
+        )}
+        <div className="flex mt-4">
           <ShowCountryButton
             text="England and Wales"
             setToggle={() => toggleEnglandAndWales()}
@@ -91,15 +155,6 @@ export default function Home({data}) {
             active={showNorthernIreland}
           />
         </div>
-        {showEnglandAndWales && (
-          <pre>{JSON.stringify(nextBankHolidayEnglandWales, null, 2)}</pre>
-        )}
-        {showNorthernIreland && (
-          <pre>{JSON.stringify(nextBankHolidayNorthernIreland, null, 2)}</pre>
-        )}
-        {showScotland && (
-          <pre>{JSON.stringify(nextBankHolidayScotland, null, 2)}</pre>
-        )}
       </div>
     </div>
   );

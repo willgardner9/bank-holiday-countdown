@@ -32,7 +32,6 @@ html:focus-within {
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
 }
@@ -82,8 +81,7 @@ select {
   font-family: sans-serif;
   font-weight: 400;
   color: #ffffff;
-  background-color: #3369ff;
-  box-shadow: inset 0 -0.6em 0 -0.35em #3369ff3b;
+  background-color: #000000;
   text-align: center;
   position: relative;
   border: 2px solid #ffffff;
@@ -91,19 +89,14 @@ select {
   cursor: pointer;
 }
 
-.button:active {
-  top: 0.1em;
-}
-
 .button-active {
   background-color: #ffffff;
-  color: #3369ff;
-  border: 2px solid #3369ff;
+  color: #000000;
+  border: 2px solid #000000;
 }
 
 .mx-auto {
   margin: 0 auto;
-  max-width: 500px;
 }
 
 .flex {
@@ -124,4 +117,28 @@ pre {
 
 .mt-12 {
   margin-top: 12rem;
+}
+
+.text-box {
+  margin-top: 2rem;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.text-subtitle {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.text-title {
+  font-size: 2.5rem;
+  margin-top: 1rem;
+}
+
+.text-title-span {
+  font-weight: 300;
+}
+
+.mt-4 {
+  margin-top: 2rem;
 }

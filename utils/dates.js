@@ -17,4 +17,14 @@ const formatDate = (year, month, day) => {
   return `${formattedDate.year}-${formattedDate.month}-${formattedDate.day}`;
 };
 
-module.exports = {getDateToday, formatDate};
+const countDaysBetweenDateStrings = (dateStringOne, dateStringTwo) => {
+  const dateOne = new Date(dateStringOne);
+  const dateTwo = new Date(dateStringTwo);
+
+  const differenceInSeconds = dateTwo.getTime() - dateOne.getTime();
+  const differenceInDays = differenceInSeconds / (1000 * 3600 * 24);
+
+  return differenceInDays;
+};
+
+module.exports = {getDateToday, formatDate, countDaysBetweenDateStrings};
